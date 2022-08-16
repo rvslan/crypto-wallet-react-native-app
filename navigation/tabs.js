@@ -14,11 +14,12 @@ const TabBarCustomButton = ({ children, onPress }) => {
   return (
     <TouchableOpacity
       onPress={onPress}
-      // style={{
-      //   flex: 1,
-      //   justifyContent: 'center',
-      //   alignItems: 'center',
-      // }}
+      style={{
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: 40,
+      }}
     >
       {children}
     </TouchableOpacity>
@@ -27,7 +28,6 @@ const TabBarCustomButton = ({ children, onPress }) => {
 
 const Tabs = ({ setTradeModalVisibility, isTradeModalVisible }) => {
   function tradeTabButtonHandler() {
-    console.log('aaa');
     setTradeModalVisibility(!isTradeModalVisible);
   }
 
@@ -112,9 +112,15 @@ const Tabs = ({ setTradeModalVisibility, isTradeModalVisible }) => {
         component={Profile}
         options={{
           tabBarIcon: ({ focused }) => {
-            return (
-              <TabIcon focused={focused} icon={icons.profile} label='Profile' />
-            );
+            if (!isTradeModalVisible) {
+              return (
+                <TabIcon
+                  focused={focused}
+                  icon={icons.profile}
+                  label='Profile'
+                />
+              );
+            }
           },
         }}
       />
@@ -130,8 +136,9 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    setTradeModalVisibility: (isVisible) =>
-      dispatch(setTradeModalVisibility(isVisible)),
+    setTradeModalVisibility: (isVisible) => {
+      return dispatch(setTradeModalVisibility(isVisible));
+    },
   };
 }
 

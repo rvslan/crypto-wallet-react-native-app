@@ -1,6 +1,6 @@
 export const SET_TRADE_MODAL_VISIBILITY = 'SET_TRADE_MODAL_VISIBILITY';
 
-export const setTradeModalVisibilitySuccess = (visible) => {
+export const setTradeModalVisibilitySuccess = (isVisible) => {
   return {
     type: SET_TRADE_MODAL_VISIBILITY,
     payload: { isVisible },
