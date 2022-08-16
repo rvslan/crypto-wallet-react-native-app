@@ -54,6 +54,13 @@ const Tabs = ({ setTradeModalVisibility, isTradeModalVisible }) => {
             }
           },
         }}
+        listeners={{
+          tabPress: (e) => {
+            if (isTradeModalVisible) {
+              e.preventDefault();
+            }
+          },
+        }}
       />
       <Tab.Screen
         name='Portfolio'
@@ -71,6 +78,13 @@ const Tabs = ({ setTradeModalVisibility, isTradeModalVisible }) => {
             }
           },
         }}
+        listeners={{
+          tabPress: (e) => {
+            if (isTradeModalVisible) {
+              e.preventDefault();
+            }
+          },
+        }}
       />
       <Tab.Screen
         name='Trade'
@@ -80,7 +94,8 @@ const Tabs = ({ setTradeModalVisibility, isTradeModalVisible }) => {
             return (
               <TabIcon
                 focused={focused}
-                icon={icons.trade}
+                icon={isTradeModalVisible ? icons.close : icons.trade}
+                iconStyle={isTradeModalVisible ? { width: 15, height: 15 } : {}}
                 isTrade={true}
                 label='Trade'
               />
@@ -106,6 +121,13 @@ const Tabs = ({ setTradeModalVisibility, isTradeModalVisible }) => {
             }
           },
         }}
+        listeners={{
+          tabPress: (e) => {
+            if (isTradeModalVisible) {
+              e.preventDefault();
+            }
+          },
+        }}
       />
       <Tab.Screen
         name='Profile'
@@ -120,6 +142,13 @@ const Tabs = ({ setTradeModalVisibility, isTradeModalVisible }) => {
                   label='Profile'
                 />
               );
+            }
+          },
+        }}
+        listeners={{
+          tabPress: (e) => {
+            if (isTradeModalVisible) {
+              e.preventDefault();
             }
           },
         }}
