@@ -1,16 +1,15 @@
-import React from 'react';
 import { View, Text } from 'react-native';
-
+import React from 'react';
 import MainLayout from './MainLayout';
 
-const Profile = () => {
+const Trade = () => {
   return (
     <MainLayout>
       <View>
-        <Text>Profile</Text>
+        <Text>Trade</Text>
       </View>
     </MainLayout>
   );
 };
 
-export default Profile;
+export default Trade;
