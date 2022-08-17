@@ -26,7 +26,7 @@ const MainLayout = ({ children, isTradeModalVisible }) => {
 
   const modalY = modalAnimatedValue.interpolate({
     inputRange: [0, 1],
-    outputRange: [SIZES.height, SIZES.height - 265],
+    outputRange: [SIZES.height, SIZES.height - 280],
   });
 
   return (
@@ -66,9 +66,8 @@ const MainLayout = ({ children, isTradeModalVisible }) => {
           icon={icons.withdraw}
           style={{
             marginTop: 1060,
-
           }}
-          constainerStyle={{ marginTop: SIZES.base }}
+          containerStyle={{ marginTop: SIZES.base }}
           onPress={() => {}}
         />
       </Animated.View>
