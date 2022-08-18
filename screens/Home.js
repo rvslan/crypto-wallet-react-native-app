@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text } from 'react-native';
 
 import MainLayout from './MainLayout';
-import { BalanceInfo } from '../components';
+import { BalanceInfo, Chart, IconTextButton } from '../components';
 
 import { useFocusEffect } from '@react-navigation/native';
 
@@ -36,7 +36,7 @@ const Home = ({ getHoldings, getCoinMarket, myHoldings, coins }) => {
       <View
         style={{
           paddingHorizontal: SIZES.padding,
-          paddingBottomLeftRadius: 25,
+          borderBottomLeftRadius: 25,
           borderBottomRightRadius: 25,
           backgroundColor: COLORS.gray,
         }}
@@ -49,6 +49,39 @@ const Home = ({ getHoldings, getCoinMarket, myHoldings, coins }) => {
             marginTop: 50,
           }}
         />
+
+        <View
+          style={{
+            flexDirection: 'row',
+            marginTop: 30,
+            marginBottom: -15,
+            paddingHorizontal: SIZES.radius,
+          }}
+        >
+          <IconTextButton
+            label='Transfer'
+            icon={icons.send}
+            containerStyle={{
+              flex: 1,
+              margin: 10,
+              marginRight: SIZES.radius,
+            }}
+            onPress={() => {
+              console.log('Transfer');
+            }}
+          />
+          <IconTextButton
+            label='Withdraw'
+            icon={icons.withdraw}
+            containerStyle={{
+              flex: 1,
+              margin: 10,
+            }}
+            onPress={() => {
+              console.log('Transfer');
+            }}
+          />
+        </View>
       </View>
     );
   };
@@ -61,7 +94,16 @@ const Home = ({ getHoldings, getCoinMarket, myHoldings, coins }) => {
           backgroundColor: COLORS.black,
         }}
       >
+        {/* Header - Wallet Info */}
         {renderWalletInfoSection()}
+
+        {/* Chart */}
+        <Chart
+          containerStyle={{
+            marginTop: SIZES.padding * 2,
+          }}
+          chartPrices={coins[0]?.sparkline_in_7d?.price}
+        />
       </View>
     </MainLayout>
   );
