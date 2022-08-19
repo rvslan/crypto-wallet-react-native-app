@@ -58,9 +58,9 @@ const Chart = ({ containerStyle, chartPrices }) => {
     } else if (value > 1e6) {
       return `${(value / 1e6).toFixed(roundingPoint)}M`;
     } else if (value > 1e3) {
-     return `${(value / 1e3).toFixed(roundingPoint)}K`;
+      return `${(value / 1e3).toFixed(roundingPoint)}K`;
     } else {
-      return `${value}.toFixed(${roundingPoint})`;
+      return value.toFixed(roundingPoint);
     }
   };
 
