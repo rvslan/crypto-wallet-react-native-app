@@ -8,6 +8,8 @@ import { getHoldings } from '../stores/market/marketActions';
 import MainLayout from './MainLayout';
 import { BalanceInfo, Chart } from '../components';
 import { SIZES, COLORS, FONTS, dummyData, icons } from '../constants';
+import { getPriceColor } from '../use/getPriceColor';
+import getPortfolioChanges from '../use/getPortfolioChanges';
 
 const Portfolio = ({ getHoldings, myHoldings }) => {
   const [selectedCoin, setSelectedCoin] = React.useState(null);
@@ -18,15 +20,9 @@ const Portfolio = ({ getHoldings, myHoldings }) => {
     }, [])
   );
 
-  let totalWallet = myHoldings.reduce(
-    (acc, curr) => acc + (curr.total || 0),
-    0
-  );
+  let totalWallet = getPortfolioChanges.totalWallet(myHoldings);
 
-  let valueChange = myHoldings.reduce(
-    (acc, curr) => acc + (curr.holding_value_change_7d || 0),
-    0
-  );
+  let valueChange = getPortfolioChanges.valueChange(myHoldings);
 
   let valueChangePerc = (valueChange / (totalWallet - valueChange)) * 100;
 
@@ -139,12 +135,9 @@ const Portfolio = ({ getHoldings, myHoldings }) => {
             </View>
           }
           renderItem={({ item }) => {
-            let priceColor =
-              item.price_change_percentage_7d_in_currency == 0
-                ? COLORS.lightGray3
-                : item.price_change_percentage_7d_in_currency > 0
-                ? COLORS.lightGreen
-                : COLORS.red;
+            let priceColor = getPriceColor(
+              item.price_change_percentage_7d_in_currency
+            );
 
             return (
               <TouchableOpacity

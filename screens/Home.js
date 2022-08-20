@@ -10,6 +10,8 @@ import { connect } from 'react-redux';
 import { getHoldings, getCoinMarket } from '../stores/market/marketActions';
 
 import { SIZES, COLORS, FONTS, dummyData, icons } from '../constants';
+import { getPriceColor } from '../use/getPriceColor';
+import getPortfolioChanges from '../use/getPortfolioChanges';
 
 const Home = ({ getHoldings, getCoinMarket, myHoldings, coins }) => {
   const [selectedCoin, setSelectedCoin] = React.useState(null);
@@ -18,30 +20,14 @@ const Home = ({ getHoldings, getCoinMarket, myHoldings, coins }) => {
     React.useCallback(() => {
       getHoldings(dummyData.holdings);
       getCoinMarket();
-    }, [getHoldings, getCoinMarket])
+    }, [])
   );
 
-  let totalWallet = myHoldings.reduce(
-    (acc, curr) => acc + (curr.total || 0),
-    0
-  );
+  let totalWallet = getPortfolioChanges.totalWallet(myHoldings);
 
-  let valueChange = myHoldings.reduce(
-    (acc, curr) => acc + (curr.holding_value_change_7d || 0),
-    0
-  );
+  let valueChange = getPortfolioChanges.valueChange(myHoldings);
 
   let valueChangePerc = (valueChange / (totalWallet - valueChange)) * 100;
-
-  const priceColor = (item) => {
-    if (item.price_change_percentage_7d_in_currency == 0)
-      return COLORS.lightGray3;
-
-    if (item.price_change_percentage_7d_in_currency > 0)
-      return COLORS.lightGreen;
-
-    return COLORS.red;
-  };
 
   const renderWalletInfoSection = () => {
     return (
@@ -212,7 +198,7 @@ const Home = ({ getHoldings, getCoinMarket, myHoldings, coins }) => {
                         style={{
                           width: 10,
                           height: 10,
-                          tintColor: priceColor(item),
+                          tintColor: getPriceColor(item),
                           transform:
                             item.price_change_percentage_7d_in_currency > 0
                               ? [{ rotate: '45deg' }]
@@ -224,7 +210,7 @@ const Home = ({ getHoldings, getCoinMarket, myHoldings, coins }) => {
                     <Text
                       style={{
                         marginLeft: 5,
-                        color: priceColor,
+                        color: getPriceColor(item),
                         ...FONTS.body5,
                         lineHeight: 15,
                       }}
