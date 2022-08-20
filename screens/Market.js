@@ -14,6 +14,7 @@ import { getCoinMarket } from '../stores/market/marketActions';
 import MainLayout from './MainLayout';
 import { constants, COLORS, FONTS, SIZES, icons } from '../constants';
 import { HeaderBar, TextButton } from '../components';
+import { getPriceColor } from '../use/getPriceColor';
 
 const marketTabs = constants.marketTabs.map((tab) => ({
   ...tab,
@@ -199,12 +200,9 @@ const Market = ({ getCoinMarket, coins }) => {
                 data={coins}
                 keyExtractor={(item) => item.id}
                 renderItem={({ item, index }) => {
-                  let priceColor =
-                    item.price_change_percentage_7d_in_currency == 0
-                      ? COLORS.lightGray3
-                      : item.price_change_percentage_7d_in_currency > 0
-                      ? COLORS.lightGreen
-                      : COLORS.red;
+                  let priceColor = getPriceColor(
+                    item.price_change_percentage_7d_in_currency
+                  );
 
                   return (
                     <View
